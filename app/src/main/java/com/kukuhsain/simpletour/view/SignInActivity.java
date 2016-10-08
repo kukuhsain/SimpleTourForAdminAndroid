@@ -32,6 +32,8 @@ public class SignInActivity extends AppCompatActivity {
         Timber.d("Sign In...");
         Timber.d(etEmail.getText().toString());
         Timber.d(etPassword.getText().toString());
+        startActivity(new Intent(this, DestinationsActivity.class));
+        finish();
     }
 
     @OnClick(R.id.btn_sign_up)

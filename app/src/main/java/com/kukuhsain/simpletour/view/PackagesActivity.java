@@ -10,7 +10,6 @@ import com.kukuhsain.simpletour.R;
  */
 
 public class PackagesActivity extends AppCompatActivity {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -17,11 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.PackagesActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".view.SignInActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.DestinationsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.PackagesActivity"
             android:screenOrientation="portrait"/>
     </application>
 
