@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".view.PackagesActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.SignInActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
