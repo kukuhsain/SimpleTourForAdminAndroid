@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -33,5 +34,6 @@ public class SignUpActivity extends AppCompatActivity {
         Timber.d(etName.getText().toString());
         Timber.d(etEmail.getText().toString());
         Timber.d(etPassword.getText().toString());
+        startActivity(new Intent(this, PackagesActivity.class));
     }
 }
