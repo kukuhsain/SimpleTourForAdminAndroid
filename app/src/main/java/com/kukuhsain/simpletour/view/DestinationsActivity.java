@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
+import com.kukuhsain.simpletour.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.view.adapter.DestinationAdapter;
 
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by kukuh on 08/10/16.
@@ -36,6 +41,33 @@ public class DestinationsActivity extends AppCompatActivity {
 
         rvAdapter = new DestinationAdapter(getDummyDestinations());
         rvDestinations.setAdapter(rvAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Timber.d(SimpleTourApi.BASE_URL);
+        SimpleTourApi.getInstance().getDestinations()
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<List<Destination>>() {
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed...");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("error...");
+                        e.printStackTrace();
+                        Toast.makeText(DestinationsActivity.this, "Network Failure...", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(List<Destination> destinations) {
+                        Timber.d("next...");
+                        Timber.d(destinations.toString());
+                    }
+                });
     }
 
     private Destination[] getDummyDestinations() {
