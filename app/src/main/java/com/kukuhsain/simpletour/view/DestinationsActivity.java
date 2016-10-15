@@ -66,6 +66,9 @@ public class DestinationsActivity extends AppCompatActivity {
                     public void onNext(List<Destination> destinations) {
                         Timber.d("next...");
                         Timber.d(destinations.toString());
+                        Destination[] destinationsArray = destinations.toArray(new Destination[destinations.size()]);
+                        rvAdapter = new DestinationAdapter(destinationsArray);
+                        runOnUiThread(() -> rvDestinations.setAdapter(rvAdapter));
                     }
                 });
     }
@@ -76,8 +79,8 @@ public class DestinationsActivity extends AppCompatActivity {
 
         for (int i=1; i<=totalAmount; i++) {
             Destination destination = new Destination();
-            destination.setName("Destination #"+i);
-            destination.setDescription("description for Destination #"+i);
+            destination.setTitle("Destination #"+i);
+            destination.setContent("description for Destination #"+i);
             destinations.add(destination);
         }
 

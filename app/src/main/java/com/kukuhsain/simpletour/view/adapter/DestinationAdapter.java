@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
 
+import timber.log.Timber;
+
 /**
  * Created by kukuh on 08/10/16.
  */
@@ -40,8 +42,10 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvName.setText(destinations[position].getName());
-        holder.tvDescription.setText(destinations[position].getDescription());
+        holder.tvName.setText(destinations[position].getTitle());
+        holder.tvDescription.setText(destinations[position].getContent());
+        Timber.d(destinations[position].getImageUrl());
+        Timber.d(destinations[position].getLocation());
     }
 
     @Override

@@ -5,35 +5,35 @@ package com.kukuhsain.simpletour.model.pojo;
  */
 
 public class Destination {
-    private String name;
-    private String description;
+    private String title;
+    private String content;
     private String imageUrl;
     private String location;
 
     public Destination() {
     }
 
-    public Destination(String name, String description, String imageUrl, String location) {
-        this.description = description;
+    public Destination(String title, String content, String imageUrl, String location) {
+        this.title = title;
+        this.content = content;
         this.imageUrl = imageUrl;
         this.location = location;
-        this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getImageUrl() {
