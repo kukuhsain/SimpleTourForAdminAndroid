@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
 
+import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -16,9 +18,9 @@ import timber.log.Timber;
  */
 
 public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.ViewHolder> {
-    private Destination[] destinations;
+    private List<Destination> destinations;
 
-    public DestinationAdapter(Destination[] destinations) {
+    public DestinationAdapter(List<Destination> destinations) {
         this.destinations = destinations;
     }
 
@@ -42,14 +44,14 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvName.setText(destinations[position].getTitle());
-        holder.tvDescription.setText(destinations[position].getContent());
-        Timber.d(destinations[position].getImageUrl());
-        Timber.d(destinations[position].getLocation());
+        holder.tvName.setText(destinations.get(position).getTitle());
+        holder.tvDescription.setText(destinations.get(position).getContent());
+        Timber.d(destinations.get(position).getImageUrl());
+        Timber.d(destinations.get(position).getLocation());
     }
 
     @Override
     public int getItemCount() {
-        return destinations.length;
+        return destinations.size();
     }
 }
