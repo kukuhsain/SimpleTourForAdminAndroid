@@ -11,6 +11,8 @@ import com.kukuhsain.simpletour.model.pojo.Destination;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 /**
@@ -25,13 +27,19 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName;
-        public TextView tvDescription;
+        @BindView(R.id.tv_name) TextView tvTitle;
+        @BindView(R.id.tv_description) TextView tvContent;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvName = (TextView) itemView.findViewById(R.id.tv_name);
-            tvDescription = (TextView) itemView.findViewById(R.id.tv_description);
+            ButterKnife.bind(this, itemView);
+        }
+
+        public void bind(Destination destination) {
+            tvTitle.setText(destination.getTitle());
+            tvContent.setText(destination.getContent());
+            Timber.d(destination.getImageUrl());
+            Timber.d(destination.getLocation());
         }
     }
 
@@ -44,14 +52,13 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvName.setText(destinations.get(position).getTitle());
-        holder.tvDescription.setText(destinations.get(position).getContent());
-        Timber.d(destinations.get(position).getImageUrl());
-        Timber.d(destinations.get(position).getLocation());
+        holder.bind(destinations.get(position));
     }
 
     @Override
     public int getItemCount() {
         return destinations.size();
     }
+
+
 }
