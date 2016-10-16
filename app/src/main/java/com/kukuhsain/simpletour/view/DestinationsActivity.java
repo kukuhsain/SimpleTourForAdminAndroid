@@ -16,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscriber;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -49,27 +48,13 @@ public class DestinationsActivity extends AppCompatActivity {
         Timber.d(SimpleTourApi.BASE_URL);
         SimpleTourApi.getInstance().getDestinations()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<Destination>>() {
-                    @Override
-                    public void onCompleted() {
-                        Timber.d("completed...");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.d("error...");
-                        e.printStackTrace();
-                        runOnUiThread(() -> Toast.makeText(DestinationsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
-                    }
-
-                    @Override
-                    public void onNext(List<Destination> destinations) {
-                        Timber.d("next...");
-                        Timber.d(destinations.toString());
-                        Destination[] destinationsArray = destinations.toArray(new Destination[destinations.size()]);
-                        rvAdapter = new DestinationAdapter(destinationsArray);
-                        runOnUiThread(() -> rvDestinations.setAdapter(rvAdapter));
-                    }
+                .subscribe(destinations -> {
+                    Destination[] destinationsArray = destinations.toArray(new Destination[destinations.size()]);
+                    rvAdapter = new DestinationAdapter(destinationsArray);
+                    runOnUiThread(() -> rvDestinations.setAdapter(rvAdapter));
+                }, throwable -> {
+                    throwable.printStackTrace();
+                    runOnUiThread(() -> Toast.makeText(DestinationsActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show());
                 });
     }
 
