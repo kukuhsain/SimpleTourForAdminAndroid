@@ -59,7 +59,7 @@ public class DestinationsActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         Timber.d("error...");
                         e.printStackTrace();
-                        Toast.makeText(DestinationsActivity.this, "Network Failure...", Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> Toast.makeText(DestinationsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
                     }
 
                     @Override
