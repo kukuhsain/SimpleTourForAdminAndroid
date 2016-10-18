@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
+import com.kukuhsain.simpletour.view.DestinationsActivity;
 
 import java.util.List;
 
@@ -20,9 +22,11 @@ import timber.log.Timber;
  */
 
 public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.ViewHolder> {
+    private Context context;
     private List<Destination> destinations;
 
-    public DestinationAdapter(List<Destination> destinations) {
+    public DestinationAdapter(Context context, List<Destination> destinations) {
+        this.context = context;
         this.destinations = destinations;
     }
 
@@ -35,9 +39,12 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Destination destination) {
+        public void bind(Context context, Destination destination) {
             tvTitle.setText(destination.getTitle());
             tvContent.setText(destination.getContent());
+            itemView.setOnClickListener(view -> {
+                ((DestinationsActivity) context).onItemClicked(destination);
+            });
             Timber.d(destination.getImageUrl());
             Timber.d(destination.getLocation());
         }
@@ -52,7 +59,7 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(destinations.get(position));
+        holder.bind(context, destinations.get(position));
     }
 
     @Override

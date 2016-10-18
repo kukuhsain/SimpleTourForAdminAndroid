@@ -1,6 +1,7 @@
 package com.kukuhsain.simpletour.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.kukuhsain.simpletour.R;
+import com.kukuhsain.simpletour.model.pojo.Destination;
 import com.kukuhsain.simpletour.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.view.adapter.DestinationAdapter;
 
@@ -48,7 +50,7 @@ public class DestinationsActivity extends AppCompatActivity {
         SimpleTourApi.getInstance().getDestinations()
                 .subscribeOn(Schedulers.io())
                 .subscribe(destinations -> {
-                    rvAdapter = new DestinationAdapter(destinations);
+                    rvAdapter = new DestinationAdapter(this, destinations);
                     runOnUiThread(() -> {
                         rvDestinations.setAdapter(rvAdapter);
                         progressDialog.hide();
@@ -60,5 +62,9 @@ public class DestinationsActivity extends AppCompatActivity {
                         progressDialog.hide();
                     });
                 });
+    }
+
+    public void onItemClicked(Destination destination) {
+        runOnUiThread(() -> startActivity(new Intent(this, PackagesActivity.class)));
     }
 }
