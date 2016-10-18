@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
 import com.kukuhsain.simpletour.model.remote.SimpleTourApi;
@@ -65,6 +66,8 @@ public class DestinationsActivity extends AppCompatActivity {
     }
 
     public void onItemClicked(Destination destination) {
-        runOnUiThread(() -> startActivity(new Intent(this, PackagesActivity.class)));
+        Intent intent = new Intent(this, PackagesActivity.class);
+        intent.putExtra("destination", (new Gson()).toJson(destination));
+        runOnUiThread(() -> startActivity(intent));
     }
 }
