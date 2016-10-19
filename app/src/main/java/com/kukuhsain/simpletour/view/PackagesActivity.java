@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
+import com.kukuhsain.simpletour.model.remote.SimpleTourApi;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +23,7 @@ import butterknife.ButterKnife;
 public class PackagesActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.iv_background_image) ImageView ivBackgroundImage;
     @BindView(R.id.tv_description) TextView tvDescription;
 
     @Override
@@ -35,5 +39,8 @@ public class PackagesActivity extends AppCompatActivity {
         Destination destination = (new Gson()).fromJson(destinationString, Destination.class);
         collapsingToolbarLayout.setTitle(destination.getTitle());
         tvDescription.setText(destination.getContent());
+        Glide.with(this)
+                .load(SimpleTourApi.BASE_URL+destination.getImageUrl())
+                .into(ivBackgroundImage);
     }
 }
