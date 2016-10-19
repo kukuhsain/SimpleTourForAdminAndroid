@@ -41,7 +41,9 @@ public class DestinationsActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
-        progressDialog.show();
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
     }
 
     @Override
@@ -54,13 +56,17 @@ public class DestinationsActivity extends AppCompatActivity {
                     rvAdapter = new DestinationAdapter(this, destinations);
                     runOnUiThread(() -> {
                         rvDestinations.setAdapter(rvAdapter);
-                        progressDialog.hide();
+                        if (progressDialog.isShowing()) {
+                            progressDialog.hide();
+                        }
                     });
                 }, throwable -> {
                     throwable.printStackTrace();
                     runOnUiThread(() -> {
                         Toast.makeText(DestinationsActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                        progressDialog.hide();
+                        if (progressDialog.isShowing()) {
+                            progressDialog.hide();
+                        }
                     });
                 });
     }

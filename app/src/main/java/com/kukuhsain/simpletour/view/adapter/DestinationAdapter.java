@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kukuhsain.simpletour.R;
 import com.kukuhsain.simpletour.model.pojo.Destination;
+import com.kukuhsain.simpletour.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.view.DestinationsActivity;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_card_image) ImageView ivCardImage;
         @BindView(R.id.tv_name) TextView tvTitle;
         @BindView(R.id.tv_description) TextView tvContent;
 
@@ -47,6 +51,9 @@ public class DestinationAdapter extends RecyclerView.Adapter<DestinationAdapter.
             });
             Timber.d(destination.getImageUrl());
             Timber.d(destination.getLocation());
+            Glide.with(context)
+                    .load(SimpleTourApi.BASE_URL+destination.getImageUrl())
+                    .into(ivCardImage);
         }
     }
 

@@ -13,9 +13,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/iv_card_image"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:src="@drawable/sunset"
             android:scaleType="centerCrop"/>
 
         <TextView
