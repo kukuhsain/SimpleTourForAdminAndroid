@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour;
+package com.kukuhsain.simpletour.guest;
 
 import android.app.Application;
 

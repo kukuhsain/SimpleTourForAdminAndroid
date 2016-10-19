@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour;
+package com.kukuhsain.simpletour.guest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

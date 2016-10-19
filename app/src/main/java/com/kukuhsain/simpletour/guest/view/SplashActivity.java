@@ -1,11 +1,11 @@
-package com.kukuhsain.simpletour.view;
+package com.kukuhsain.simpletour.guest.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import com.kukuhsain.simpletour.R;
+import com.kukuhsain.simpletour.guest.R;
 
 public class SplashActivity extends AppCompatActivity {
 

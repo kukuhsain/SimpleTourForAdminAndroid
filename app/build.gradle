@@ -6,7 +6,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
-        applicationId "com.kukuhsain.simpletour"
+        applicationId "com.kukuhsain.simpletour.guest"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
