@@ -1,6 +1,6 @@
-package com.kukuhsain.simpletour.guest.model.remote;
+package com.kukuhsain.simpletour.admin.model.remote;
 
-import com.kukuhsain.simpletour.guest.model.pojo.Destination;
+import com.kukuhsain.simpletour.admin.model.pojo.Destination;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.guest.view.adapter;
+package com.kukuhsain.simpletour.admin.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.kukuhsain.simpletour.guest.R;
-import com.kukuhsain.simpletour.guest.model.pojo.Destination;
-import com.kukuhsain.simpletour.guest.model.remote.SimpleTourApi;
-import com.kukuhsain.simpletour.guest.view.DestinationsActivity;
+import com.kukuhsain.simpletour.admin.R;
+import com.kukuhsain.simpletour.admin.model.pojo.Destination;
+import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
+import com.kukuhsain.simpletour.admin.view.DestinationsActivity;
 
 import java.util.List;
 

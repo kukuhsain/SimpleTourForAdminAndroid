@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.guest;
+package com.kukuhsain.simpletour.admin;
 
 import org.junit.Test;
 

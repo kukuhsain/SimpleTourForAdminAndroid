@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.guest.view;
+package com.kukuhsain.simpletour.admin.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.kukuhsain.simpletour.guest.R;
-import com.kukuhsain.simpletour.guest.model.pojo.Destination;
-import com.kukuhsain.simpletour.guest.model.remote.SimpleTourApi;
-import com.kukuhsain.simpletour.guest.view.adapter.DestinationAdapter;
+import com.kukuhsain.simpletour.admin.R;
+import com.kukuhsain.simpletour.admin.model.pojo.Destination;
+import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
+import com.kukuhsain.simpletour.admin.view.adapter.DestinationAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
