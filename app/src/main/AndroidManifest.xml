@@ -5,32 +5,31 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name="com.kukuhsain.simpletour.admin.SimpleTourApp"
+        android:name=".SimpleTourApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name="com.kukuhsain.simpletour.admin.view.SplashActivity"
+        <activity android:name=".view.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kukuhsain.simpletour.admin.view.SignInActivity"
+        <activity android:name=".view.SignInActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.kukuhsain.simpletour.admin.view.SignUpActivity"
+        <activity android:name=".view.SignUpActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.kukuhsain.simpletour.admin.view.DestinationsActivity"
+        <activity android:name=".view.DestinationsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.kukuhsain.simpletour.admin.view.PackagesActivity"
-            android:parentActivityName="com.kukuhsain.simpletour.admin.view.DestinationsActivity"
-            android:screenOrientation="portrait">
-            <!--<meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.DestinationsActivity"/>-->
-        </activity>
+        <activity
+            android:name=".view.PackagesActivity"
+            android:parentActivityName=".view.DestinationsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.AddDestinationActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

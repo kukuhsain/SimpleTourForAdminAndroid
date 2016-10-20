@@ -16,6 +16,7 @@ import com.kukuhsain.simpletour.admin.view.adapter.DestinationAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -75,5 +76,10 @@ public class DestinationsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PackagesActivity.class);
         intent.putExtra("destination", (new Gson()).toJson(destination));
         runOnUiThread(() -> startActivity(intent));
+    }
+
+    @OnClick(R.id.fab)
+    public void goToAddDestinationActivity() {
+        startActivity(new Intent(this, AddDestinationActivity.class));
     }
 }
