@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.kukuhsain.simpletour.admin.R;
+import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
@@ -30,10 +33,23 @@ public class SignInActivity extends AppCompatActivity {
     @OnClick(R.id.btn_sign_in)
     public void signIn() {
         Timber.d("Sign In...");
-        Timber.d(etEmail.getText().toString());
-        Timber.d(etPassword.getText().toString());
-        startActivity(new Intent(this, DestinationsActivity.class));
-        finish();
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        SimpleTourApi.getInstance()
+                .signIn(email, password)
+                .subscribeOn(Schedulers.io())
+                .subscribe(accessToken -> {
+                    Timber.d("access token...");
+                    Timber.d(accessToken);
+                    runOnUiThread(() -> {
+                        startActivity(new Intent(this, DestinationsActivity.class));
+                        finish();
+                    });
+                }, throwable -> {
+                    Timber.d("error...");
+                    throwable.printStackTrace();
+                    runOnUiThread(() -> Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show());
+                });
     }
 
     @OnClick(R.id.btn_sign_up)
