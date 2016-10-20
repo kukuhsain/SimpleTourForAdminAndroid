@@ -22,7 +22,7 @@ import timber.log.Timber;
 public class SimpleTourApi {
     public static final String BASE_URL = "http://simple-tour.appspot.com";
     private static SimpleTourApi INSTANCE;
-    private static ApiEndpoint api;
+    private ApiEndpoint api;
 
     private SimpleTourApi() {
         RxJavaCallAdapterFactory rxAdapter = RxJavaCallAdapterFactory.create();

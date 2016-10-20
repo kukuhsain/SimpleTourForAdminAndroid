@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kukuhsain.simpletour.admin.R;
+import com.kukuhsain.simpletour.admin.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.admin.model.pojo.Destination;
 import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.admin.view.adapter.DestinationAdapter;
@@ -45,6 +46,8 @@ public class DestinationsActivity extends AppCompatActivity {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
+
+        Timber.d("access token:... "+PreferencesHelper.getInstance().getAccessToken());
     }
 
     @Override

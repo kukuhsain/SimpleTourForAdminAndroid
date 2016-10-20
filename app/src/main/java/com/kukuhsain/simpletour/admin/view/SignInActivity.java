@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.kukuhsain.simpletour.admin.R;
+import com.kukuhsain.simpletour.admin.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
 
 import butterknife.BindView;
@@ -41,6 +42,7 @@ public class SignInActivity extends AppCompatActivity {
                 .subscribe(accessToken -> {
                     Timber.d("access token...");
                     Timber.d(accessToken);
+                    PreferencesHelper.getInstance().putAccessToken(accessToken);
                     runOnUiThread(() -> {
                         startActivity(new Intent(this, DestinationsActivity.class));
                         finish();
