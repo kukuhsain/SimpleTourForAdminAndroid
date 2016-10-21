@@ -6,15 +6,18 @@ import com.kukuhsain.simpletour.admin.model.pojo.Destination;
 
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
-import timber.log.Timber;
 
 /**
  * Created by kukuh on 15/10/16.
@@ -56,9 +59,11 @@ public class SimpleTourApi {
     }
 
     public Observable<Destination> addDestination(String title, String content, String location) {
-        Timber.d("access token...");
-        Timber.d(accessToken);
-        return api.addDestination(accessToken, title, content, location);
+        RequestBody rbAccessToken = RequestBody.create(MediaType.parse("text/plain"), accessToken);
+        RequestBody rbTitle = RequestBody.create(MediaType.parse("text/plain"), title);
+        RequestBody rbContent = RequestBody.create(MediaType.parse("text/plain"), content);
+        RequestBody rbLocation = RequestBody.create(MediaType.parse("text/plain"), location);
+        return api.addDestination(rbAccessToken, rbTitle, rbContent, rbLocation);
     }
 
     private interface ApiEndpoint {
@@ -70,11 +75,11 @@ public class SimpleTourApi {
         @GET("/destinations")
         Observable<List<Destination>> getDestinations();
 
-        @FormUrlEncoded
+        @Multipart
         @POST("/destination/add")
-        Observable<Destination> addDestination(@Field("access_token") String accessToken,
-                                               @Field("title") String title,
-                                               @Field("content") String content,
-                                               @Field("location") String location);
+        Observable<Destination> addDestination(@Part("access_token") RequestBody accessToken,
+                                               @Part("title") RequestBody title,
+                                               @Part("content") RequestBody content,
+                                               @Part("location") RequestBody location);
     }
 }
