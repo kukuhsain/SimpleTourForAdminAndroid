@@ -4,9 +4,11 @@ import com.google.gson.JsonObject;
 import com.kukuhsain.simpletour.admin.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.admin.model.pojo.Destination;
 
+import java.io.File;
 import java.util.List;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -58,12 +60,15 @@ public class SimpleTourApi {
         return api.getDestinations();
     }
 
-    public Observable<Destination> addDestination(String title, String content, String location) {
+    public Observable<Destination> addDestination(String title, String content, String location, String imagePath) {
         RequestBody rbAccessToken = RequestBody.create(MediaType.parse("text/plain"), accessToken);
         RequestBody rbTitle = RequestBody.create(MediaType.parse("text/plain"), title);
         RequestBody rbContent = RequestBody.create(MediaType.parse("text/plain"), content);
         RequestBody rbLocation = RequestBody.create(MediaType.parse("text/plain"), location);
-        return api.addDestination(rbAccessToken, rbTitle, rbContent, rbLocation);
+        File imageFile = new File(imagePath);
+        RequestBody rbImage = RequestBody.create(MediaType.parse("image/*"), imageFile);
+        MultipartBody.Part image = MultipartBody.Part.createFormData("image", imageFile.getName(), rbImage);
+        return api.addDestination(rbAccessToken, rbTitle, rbContent, rbLocation, image);
     }
 
     private interface ApiEndpoint {
@@ -80,6 +85,7 @@ public class SimpleTourApi {
         Observable<Destination> addDestination(@Part("access_token") RequestBody accessToken,
                                                @Part("title") RequestBody title,
                                                @Part("content") RequestBody content,
-                                               @Part("location") RequestBody location);
+                                               @Part("location") RequestBody location,
+                                               @Part MultipartBody.Part image);
     }
 }

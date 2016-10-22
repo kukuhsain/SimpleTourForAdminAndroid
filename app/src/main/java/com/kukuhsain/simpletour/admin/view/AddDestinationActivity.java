@@ -1,12 +1,15 @@
 package com.kukuhsain.simpletour.admin.view;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import com.kukuhsain.simpletour.admin.R;
 import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
+import com.kukuhsain.simpletour.admin.utility.FileUtils;
 
 import java.io.IOException;
 
@@ -35,7 +39,7 @@ public class AddDestinationActivity extends AppCompatActivity {
     @BindView(R.id.et_content) EditText etContent;
     @BindView(R.id.et_location) EditText etLocation;
 
-    private String imageUri;
+    private String imagePath;
     private ProgressDialog progressDialog;
 
     @Override
@@ -46,6 +50,8 @@ public class AddDestinationActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
     }
 
     @OnClick(R.id.btn_add)
@@ -66,7 +72,7 @@ public class AddDestinationActivity extends AppCompatActivity {
         } else {
             progressDialog.show();
             SimpleTourApi.getInstance()
-                    .addDestination(title, content, location)
+                    .addDestination(title, content, location, imagePath)
                     .subscribeOn(Schedulers.io())
                     .subscribe(destination -> {
                         runOnUiThread(() -> {
@@ -102,8 +108,8 @@ public class AddDestinationActivity extends AppCompatActivity {
         Timber.d("onActivityResult...");
         if (requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null) {
             Uri uri = data.getData();
-            Timber.d("image uri:... "+uri.toString());
-            imageUri = uri.toString();
+            imagePath = FileUtils.getRealPathFromUri(this, uri);
+            Timber.d("imagePath... "+imagePath);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 ivPreviewImage.setImageBitmap(bitmap);
@@ -111,5 +117,12 @@ public class AddDestinationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Timber.d("onPermissionResult...");
+        Timber.d(permissions[0]);
     }
 }
