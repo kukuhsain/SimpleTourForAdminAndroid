@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.admin.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -34,11 +35,17 @@ public class AddDestinationActivity extends AppCompatActivity {
     @BindView(R.id.et_content) EditText etContent;
     @BindView(R.id.et_location) EditText etLocation;
 
+    private String imageUri;
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_destination);
         ButterKnife.bind(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
     }
 
     @OnClick(R.id.btn_add)
@@ -47,20 +54,38 @@ public class AddDestinationActivity extends AppCompatActivity {
         String content = etContent.getText().toString();
         String location = etLocation.getText().toString();
 
-        SimpleTourApi.getInstance()
-                .addDestination(title, content, location)
-                .subscribeOn(Schedulers.io())
-                .subscribe(destination -> {
-                    runOnUiThread(() -> {
-                        Toast.makeText(this, "Successful...", Toast.LENGTH_SHORT).show();
-                        finish();
+        if (title.isEmpty()) {
+            etTitle.setError("You must input the name");
+            etTitle.requestFocus();
+        } else if (content.isEmpty()) {
+            etContent.setError("You must input the description");
+            etContent.requestFocus();
+        } else if (location.isEmpty()) {
+            etLocation.setError("You must input the location");
+            etLocation.requestFocus();
+        } else {
+            progressDialog.show();
+            SimpleTourApi.getInstance()
+                    .addDestination(title, content, location)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(destination -> {
+                        runOnUiThread(() -> {
+                            if (progressDialog!=null) {
+                                progressDialog.hide();
+                            }
+                            Toast.makeText(this, "Successful...", Toast.LENGTH_SHORT).show();
+                            finish();
+                        });
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                        runOnUiThread(() -> {
+                            if (progressDialog!=null) {
+                                progressDialog.hide();
+                            }
+                            Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
                     });
-                }, throwable -> {
-                    throwable.printStackTrace();
-                    runOnUiThread(() -> {
-                        Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-                });
+        }
     }
 
     @OnClick(R.id.btn_insert_image)
@@ -75,20 +100,16 @@ public class AddDestinationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Timber.d("onActivityResult...");
-        Timber.d("Pick Image:... "+PICK_IMAGE_REQUEST);
-        Timber.d("requestCode:... "+requestCode);
-        Timber.d("resultCode:... "+resultCode);
-        Timber.d("Result OK:... "+RESULT_OK);
-        if (requestCode==PICK_IMAGE_REQUEST && data!=null && data.getData()!=null) {
+        if (requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null) {
             Uri uri = data.getData();
-            Timber.d("image uri:... "+uri);
+            Timber.d("image uri:... "+uri.toString());
+            imageUri = uri.toString();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 ivPreviewImage.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
