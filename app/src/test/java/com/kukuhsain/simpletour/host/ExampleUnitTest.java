@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.admin;
+package com.kukuhsain.simpletour.host;
 
 import org.junit.Test;
 

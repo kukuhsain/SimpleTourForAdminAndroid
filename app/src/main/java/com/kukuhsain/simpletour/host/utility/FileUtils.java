@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.admin.utility;
+package com.kukuhsain.simpletour.host.utility;
 
 import android.content.ContentUris;
 import android.content.Context;

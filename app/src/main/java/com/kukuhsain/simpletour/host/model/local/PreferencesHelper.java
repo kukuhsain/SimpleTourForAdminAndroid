@@ -1,9 +1,9 @@
-package com.kukuhsain.simpletour.admin.model.local;
+package com.kukuhsain.simpletour.host.model.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.kukuhsain.simpletour.admin.SimpleTourApp;
+import com.kukuhsain.simpletour.host.SimpleTourApp;
 
 /**
  * Created by kukuh on 20/10/16.

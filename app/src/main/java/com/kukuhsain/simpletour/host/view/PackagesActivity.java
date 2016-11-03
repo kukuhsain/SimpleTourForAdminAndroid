@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.admin.view;
+package com.kukuhsain.simpletour.host.view;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.kukuhsain.simpletour.admin.R;
-import com.kukuhsain.simpletour.admin.model.pojo.Destination;
-import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
+import com.kukuhsain.simpletour.host.R;
+import com.kukuhsain.simpletour.host.model.pojo.Destination;
+import com.kukuhsain.simpletour.host.model.remote.SimpleTourApi;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

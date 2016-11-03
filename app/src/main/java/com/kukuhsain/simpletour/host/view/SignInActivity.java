@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.admin.view;
+package com.kukuhsain.simpletour.host.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.kukuhsain.simpletour.admin.R;
-import com.kukuhsain.simpletour.admin.model.local.PreferencesHelper;
-import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
+import com.kukuhsain.simpletour.host.R;
+import com.kukuhsain.simpletour.host.model.local.PreferencesHelper;
+import com.kukuhsain.simpletour.host.model.remote.SimpleTourApi;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

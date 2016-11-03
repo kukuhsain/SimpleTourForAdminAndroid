@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.admin.model.pojo;
+package com.kukuhsain.simpletour.host.model.pojo;
 
 /**
  * Created by kukuh on 08/10/16.

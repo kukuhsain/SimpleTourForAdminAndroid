@@ -1,8 +1,8 @@
-package com.kukuhsain.simpletour.admin.model.remote;
+package com.kukuhsain.simpletour.host.model.remote;
 
 import com.google.gson.JsonObject;
-import com.kukuhsain.simpletour.admin.model.local.PreferencesHelper;
-import com.kukuhsain.simpletour.admin.model.pojo.Destination;
+import com.kukuhsain.simpletour.host.model.local.PreferencesHelper;
+import com.kukuhsain.simpletour.host.model.pojo.Destination;
 
 import java.io.File;
 import java.util.List;

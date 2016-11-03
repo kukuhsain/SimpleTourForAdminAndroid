@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_gravity="center"
-            android:text="Admin Sign In"
+            android:text="Host Sign In"
             android:textSize="24dp"/>
 
         <android.support.design.widget.TextInputLayout
@@ -65,7 +65,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Sign Me Up Now"
-        android:textSize="18dp"
-        android:visibility="gone"/>
+        android:textSize="18dp"/>
 
 </LinearLayout>

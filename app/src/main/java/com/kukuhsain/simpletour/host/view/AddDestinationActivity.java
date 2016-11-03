@@ -1,4 +1,4 @@
-package com.kukuhsain.simpletour.admin.view;
+package com.kukuhsain.simpletour.host.view;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -15,9 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kukuhsain.simpletour.admin.R;
-import com.kukuhsain.simpletour.admin.model.remote.SimpleTourApi;
-import com.kukuhsain.simpletour.admin.utility.FileUtils;
+import com.kukuhsain.simpletour.host.R;
+import com.kukuhsain.simpletour.host.model.remote.SimpleTourApi;
+import com.kukuhsain.simpletour.host.utility.FileUtils;
 
 import java.io.IOException;
 
