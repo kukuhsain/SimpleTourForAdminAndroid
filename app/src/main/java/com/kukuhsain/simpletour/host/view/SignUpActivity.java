@@ -62,7 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
                     .subscribeOn(Schedulers.io())
                     .subscribe(accessToken -> {
                         PreferencesHelper.getInstance().putAccessToken(accessToken);
-                        /*PreferencesHelper.getInstance().putLoggedInStatus(true);*/
+                        PreferencesHelper.getInstance().putLoggedInStatus(true);
                         runOnUiThread(() -> {
                             dismissLoading();
                             startActivity(new Intent(this, DestinationsActivity.class));

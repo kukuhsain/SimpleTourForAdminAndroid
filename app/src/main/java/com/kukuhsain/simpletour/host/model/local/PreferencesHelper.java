@@ -15,7 +15,7 @@ public class PreferencesHelper {
 
     private PreferencesHelper() {
         sharedPreferences = SimpleTourApp.getInstance()
-                .getSharedPreferences("simpletour.admin.sp", Context.MODE_PRIVATE);
+                .getSharedPreferences("simpletour.host.sp", Context.MODE_PRIVATE);
     }
 
     public static PreferencesHelper getInstance() {
@@ -31,5 +31,17 @@ public class PreferencesHelper {
 
     public String getAccessToken() {
         return sharedPreferences.getString("accessToken", "");
+    }
+
+    public void putLoggedInStatus(boolean loggedInStatus) {
+        sharedPreferences.edit().putBoolean("loggedInStatus", loggedInStatus).apply();
+    }
+
+    public boolean getLoggedInStatus() {
+        return sharedPreferences.getBoolean("loggedInStatus", false);
+    }
+
+    public void clearData() {
+        sharedPreferences.edit().clear().apply();
     }
 }
