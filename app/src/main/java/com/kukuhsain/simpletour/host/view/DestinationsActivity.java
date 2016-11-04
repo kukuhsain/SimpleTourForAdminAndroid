@@ -41,18 +41,13 @@ public class DestinationsActivity extends AppCompatActivity {
         rvLayoutManager = new LinearLayoutManager(this);
         rvDestinations.setLayoutManager(rvLayoutManager);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
-        if (!progressDialog.isShowing()) {
-            progressDialog.show();
-        }
-
         Timber.d("access token:... "+PreferencesHelper.getInstance().getAccessToken());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        showLoading();
         Timber.d(SimpleTourApi.BASE_URL);
         SimpleTourApi.getInstance().getDestinations()
                 .subscribeOn(Schedulers.io())
@@ -60,17 +55,13 @@ public class DestinationsActivity extends AppCompatActivity {
                     rvAdapter = new DestinationAdapter(this, destinations);
                     runOnUiThread(() -> {
                         rvDestinations.setAdapter(rvAdapter);
-                        if (progressDialog.isShowing()) {
-                            progressDialog.hide();
-                        }
+                        dismissLoading();
                     });
                 }, throwable -> {
                     throwable.printStackTrace();
                     runOnUiThread(() -> {
                         Toast.makeText(DestinationsActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                        if (progressDialog.isShowing()) {
-                            progressDialog.hide();
-                        }
+                        dismissLoading();
                     });
                 });
     }
@@ -84,5 +75,21 @@ public class DestinationsActivity extends AppCompatActivity {
     @OnClick(R.id.fab)
     public void goToAddDestinationActivity() {
         startActivity(new Intent(this, AddDestinationActivity.class));
+    }
+
+    private void showLoading() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        } else {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+        }
+    }
+
+    private void dismissLoading() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 }
