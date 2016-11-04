@@ -19,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.et_name) TextInputEditText etName;
     @BindView(R.id.et_email) TextInputEditText etEmail;
     @BindView(R.id.et_password) TextInputEditText etPassword;
+    @BindView(R.id.et_phone) TextInputEditText etPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
