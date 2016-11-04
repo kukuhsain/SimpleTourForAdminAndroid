@@ -15,9 +15,12 @@ import com.kukuhsain.simpletour.host.model.pojo.Destination;
 import com.kukuhsain.simpletour.host.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.host.view.adapter.DestinationAdapter;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -45,6 +48,18 @@ public class DestinationsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Iterable<Destination> iterableDestinations = Realm.getDefaultInstance()
+                .where(Destination.class)
+                .findAll();
+        List<Destination> destinations = Realm.getDefaultInstance()
+                .copyFromRealm(iterableDestinations);
+        rvAdapter = new DestinationAdapter(this, destinations);
+        rvDestinations.setAdapter(rvAdapter);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         showLoading();
@@ -52,6 +67,11 @@ public class DestinationsActivity extends AppCompatActivity {
         SimpleTourApi.getInstance().getDestinations()
                 .subscribeOn(Schedulers.io())
                 .subscribe(destinations -> {
+                    for (Destination destination : destinations) {
+                        Realm.getDefaultInstance().executeTransaction(realm1 -> {
+                            realm1.copyToRealm(destination);
+                        });
+                    }
                     rvAdapter = new DestinationAdapter(this, destinations);
                     runOnUiThread(() -> {
                         rvDestinations.setAdapter(rvAdapter);

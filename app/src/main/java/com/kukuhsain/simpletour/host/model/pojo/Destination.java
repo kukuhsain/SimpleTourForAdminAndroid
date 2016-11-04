@@ -1,10 +1,12 @@
 package com.kukuhsain.simpletour.host.model.pojo;
 
+import io.realm.RealmObject;
+
 /**
  * Created by kukuh on 08/10/16.
  */
 
-public class Destination {
+public class Destination extends RealmObject {
     private String title;
     private String content;
     private String imageUrl;
