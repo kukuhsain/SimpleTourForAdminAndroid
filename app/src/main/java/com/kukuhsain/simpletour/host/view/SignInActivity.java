@@ -37,7 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
         SimpleTourApi.getInstance()
-                .signIn(email, password)
+                .login(email, password)
                 .subscribeOn(Schedulers.io())
                 .subscribe(accessToken -> {
                     Timber.d("access token...");

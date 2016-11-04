@@ -49,11 +49,20 @@ public class SimpleTourApi {
         return INSTANCE;
     }
 
-    public Observable<String> signIn(String email, String password) {
-        return api.signIn(email, password).map(jsonObject -> {
-            String accessToken = jsonObject.get("accessToken").getAsString();
-            return accessToken;
-        });
+    public Observable<String> register(String name, String email, String password, String phone) {
+        return api.register(name, email, password, phone)
+                .map(jsonObject -> {
+                    String accessToken = jsonObject.get("accessToken").getAsString();
+                    return accessToken;
+                });
+    }
+
+    public Observable<String> login(String email, String password) {
+        return api.login(email, password)
+                .map(jsonObject -> {
+                    String accessToken = jsonObject.get("accessToken").getAsString();
+                    return accessToken;
+                });
     }
 
     public Observable<List<Destination>> getDestinations() {
@@ -73,9 +82,16 @@ public class SimpleTourApi {
 
     private interface ApiEndpoint {
         @FormUrlEncoded
-        @POST("/admin/login")
-        Observable<JsonObject> signIn(@Field("email") String email,
-                                      @Field("password") String password);
+        @POST("/host/register")
+        Observable<JsonObject> register(@Field("name") String name,
+                                        @Field("email") String email,
+                                        @Field("password") String password,
+                                        @Field("phone") String phone);
+
+        @FormUrlEncoded
+        @POST("/host/login")
+        Observable<JsonObject> login(@Field("email") String email,
+                                     @Field("password") String password);
 
         @GET("/destinations")
         Observable<List<Destination>> getDestinations();
