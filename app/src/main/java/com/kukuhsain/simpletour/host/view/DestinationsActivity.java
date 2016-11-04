@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.kukuhsain.simpletour.host.R;
 import com.kukuhsain.simpletour.host.model.local.PreferencesHelper;
+import com.kukuhsain.simpletour.host.model.local.RealmHelper;
 import com.kukuhsain.simpletour.host.model.pojo.Destination;
 import com.kukuhsain.simpletour.host.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.host.view.adapter.DestinationAdapter;
@@ -20,8 +21,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
-import io.realm.RealmResults;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -51,11 +50,7 @@ public class DestinationsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Iterable<Destination> iterableDestinations = Realm.getDefaultInstance()
-                .where(Destination.class)
-                .findAll();
-        List<Destination> destinations = Realm.getDefaultInstance()
-                .copyFromRealm(iterableDestinations);
+        List<Destination> destinations = RealmHelper.getInstance().getAllDestinations();
         rvAdapter = new DestinationAdapter(this, destinations);
         rvDestinations.setAdapter(rvAdapter);
     }
@@ -68,21 +63,7 @@ public class DestinationsActivity extends AppCompatActivity {
         SimpleTourApi.getInstance().getDestinations()
                 .subscribeOn(Schedulers.io())
                 .subscribe(destinations -> {
-                    for (Destination destination : destinations) {
-                        Realm.getDefaultInstance().executeTransaction(realm1 -> {
-                            RealmResults<Destination> iterableDestinations = realm1.where(Destination.class).findAll();
-                            List<Destination> realmDestinations = realm1.copyFromRealm(iterableDestinations);
-                            boolean isAlreadyExist = false;
-                            for (Destination realmDestination : realmDestinations) {
-                                if (destination.getDestinationId() == realmDestination.getDestinationId()) {
-                                    isAlreadyExist = true;
-                                }
-                            }
-                            if (!isAlreadyExist) {
-                                realm1.copyToRealm(destination);
-                            }
-                        });
-                    }
+                    RealmHelper.getInstance().addDestinations(destinations);
                     rvAdapter = new DestinationAdapter(this, destinations);
                     runOnUiThread(() -> {
                         rvDestinations.setAdapter(rvAdapter);
