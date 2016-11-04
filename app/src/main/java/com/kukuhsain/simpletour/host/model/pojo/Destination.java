@@ -7,6 +7,7 @@ import io.realm.RealmObject;
  */
 
 public class Destination extends RealmObject {
+    private long destinationId;
     private String title;
     private String content;
     private String imageUrl;
@@ -15,11 +16,20 @@ public class Destination extends RealmObject {
     public Destination() {
     }
 
-    public Destination(String title, String content, String imageUrl, String location) {
+    public Destination(long destinationId, String title, String content, String imageUrl, String location) {
+        this.destinationId = destinationId;
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
         this.location = location;
+    }
+
+    public long getDestinationId() {
+        return destinationId;
+    }
+
+    public void setDestinationId(long destinationId) {
+        this.destinationId = destinationId;
     }
 
     public String getTitle() {

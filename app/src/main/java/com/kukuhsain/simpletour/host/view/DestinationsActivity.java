@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -69,7 +70,17 @@ public class DestinationsActivity extends AppCompatActivity {
                 .subscribe(destinations -> {
                     for (Destination destination : destinations) {
                         Realm.getDefaultInstance().executeTransaction(realm1 -> {
-                            realm1.copyToRealm(destination);
+                            RealmResults<Destination> iterableDestinations = realm1.where(Destination.class).findAll();
+                            List<Destination> realmDestinations = realm1.copyFromRealm(iterableDestinations);
+                            boolean isAlreadyExist = false;
+                            for (Destination realmDestination : realmDestinations) {
+                                if (destination.getDestinationId() == realmDestination.getDestinationId()) {
+                                    isAlreadyExist = true;
+                                }
+                            }
+                            if (!isAlreadyExist) {
+                                realm1.copyToRealm(destination);
+                            }
                         });
                     }
                     rvAdapter = new DestinationAdapter(this, destinations);
