@@ -31,6 +31,17 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.AddDestinationActivity"
             android:screenOrientation="portrait"/>
+
+        <service android:name=".model.remote.FireIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name=".model.remote.FireService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
