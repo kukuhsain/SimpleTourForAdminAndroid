@@ -3,6 +3,7 @@ package com.kukuhsain.simpletour.host.model.remote;
 import com.google.gson.JsonObject;
 import com.kukuhsain.simpletour.host.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.host.model.pojo.Destination;
+import com.kukuhsain.simpletour.host.model.pojo.Package;
 
 import java.io.File;
 import java.util.List;
@@ -19,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -80,6 +82,10 @@ public class SimpleTourApi {
         return api.addDestination(rbAccessToken, rbTitle, rbContent, rbLocation, image);
     }
 
+    public Observable<List<Package>> getPackages(long destinationId) {
+        return api.getPackages(destinationId);
+    }
+
     private interface ApiEndpoint {
         @FormUrlEncoded
         @POST("/host/register")
@@ -103,5 +109,8 @@ public class SimpleTourApi {
                                                @Part("content") RequestBody content,
                                                @Part("location") RequestBody location,
                                                @Part MultipartBody.Part image);
+
+        @GET("/destination/{destination_id}/packages")
+        Observable<List<Package>> getPackages(@Path("destination_id") long destinationId);
     }
 }
