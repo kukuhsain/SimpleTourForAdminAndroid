@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.host.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class PackagesActivity extends AppCompatActivity {
     @BindView(R.id.rv_packages) RecyclerView rvPackages;
 
     private Destination destination;
+    private ProgressDialog progressDialog;
     private PackageAdapter packageAdapter;
 
     @Override
@@ -66,18 +68,41 @@ public class PackagesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        showLoading();
         SimpleTourApi.getInstance().getPackages(destination.getDestinationId())
                 .subscribeOn(Schedulers.io())
                 .subscribe(packages -> {
                     packageAdapter = new PackageAdapter(this, packages);
-                    runOnUiThread(() -> rvPackages.setAdapter(packageAdapter));
+                    runOnUiThread(() -> {
+                        rvPackages.setAdapter(packageAdapter);
+                        dismissLoading();
+                    });
                 }, throwable -> {
                     throwable.printStackTrace();
-                    runOnUiThread(() -> Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> {
+                        Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        dismissLoading();
+                    });
                 });
     }
 
     public void onItemClicked(Package onePackage) {
         Timber.d("on package item clicked...");
+    }
+
+    private void showLoading() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        } else {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+        }
+    }
+
+    private void dismissLoading() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 }
