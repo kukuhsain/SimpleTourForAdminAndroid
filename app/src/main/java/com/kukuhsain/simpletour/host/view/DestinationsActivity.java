@@ -85,7 +85,7 @@ public class DestinationsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
+        menuInflater.inflate(R.menu.menu_destinations_activity, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
