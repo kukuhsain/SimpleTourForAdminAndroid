@@ -12,7 +12,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         </android.support.v7.widget.Toolbar>
 
@@ -31,7 +31,6 @@
         android:layout_gravity="bottom|end"
         android:clickable="true"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_black_24dp"
-        android:tint="@color/textWhitePrimary"/>
+        android:src="@drawable/ic_add_white_24dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
