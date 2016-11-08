@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kukuhsain.simpletour.host.R;
-import com.kukuhsain.simpletour.host.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.host.model.local.RealmHelper;
 import com.kukuhsain.simpletour.host.model.pojo.Destination;
 import com.kukuhsain.simpletour.host.model.remote.SimpleTourApi;
@@ -29,6 +31,7 @@ import timber.log.Timber;
  */
 
 public class DestinationsActivity extends AppCompatActivity {
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.rv_destinations) RecyclerView rvDestinations;
 
     RecyclerView.LayoutManager rvLayoutManager;
@@ -44,7 +47,8 @@ public class DestinationsActivity extends AppCompatActivity {
         rvLayoutManager = new LinearLayoutManager(this);
         rvDestinations.setLayoutManager(rvLayoutManager);
 
-        Timber.d("access token:... "+PreferencesHelper.getInstance().getAccessToken());
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Destinations");
     }
 
     @Override
@@ -76,6 +80,13 @@ public class DestinationsActivity extends AppCompatActivity {
                         dismissLoading();
                     });
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void onItemClicked(Destination destination) {
