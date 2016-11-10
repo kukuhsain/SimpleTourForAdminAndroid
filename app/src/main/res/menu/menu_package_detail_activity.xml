@@ -2,11 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_cart"
-        android:title="Cart"
-        android:icon="@drawable/ic_shopping_cart_white_24dp"
+        android:id="@+id/menu_edit"
+        android:title="Edit"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_sign_out"
-        android:title="Sign Out"/>
 </menu>
