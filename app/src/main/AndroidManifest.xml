@@ -35,6 +35,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.AddDestinationActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.ReservationsActivity"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".model.remote.FireIDService">
             <intent-filter>
