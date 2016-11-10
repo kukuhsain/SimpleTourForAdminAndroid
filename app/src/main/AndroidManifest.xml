@@ -29,6 +29,10 @@
             android:name=".view.PackagesActivity"
             android:parentActivityName=".view.DestinationsActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.PackageDetailActivity"
+            android:parentActivityName=".view.PackagesActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.AddDestinationActivity"
             android:screenOrientation="portrait"/>
 

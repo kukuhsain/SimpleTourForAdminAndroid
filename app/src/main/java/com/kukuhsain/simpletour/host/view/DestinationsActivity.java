@@ -92,7 +92,7 @@ public class DestinationsActivity extends AppCompatActivity {
     public void onItemClicked(Destination destination) {
         Intent intent = new Intent(this, PackagesActivity.class);
         intent.putExtra("destination", (new Gson()).toJson(destination));
-        runOnUiThread(() -> startActivity(intent));
+        startActivity(intent);
     }
 
     @OnClick(R.id.fab)

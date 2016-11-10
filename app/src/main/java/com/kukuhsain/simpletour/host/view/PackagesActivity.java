@@ -1,6 +1,7 @@
 package com.kukuhsain.simpletour.host.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,6 @@ import com.kukuhsain.simpletour.host.view.adapter.PackageAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * Created by kukuh on 08/10/16.
@@ -96,7 +96,9 @@ public class PackagesActivity extends AppCompatActivity {
     }
 
     public void onItemClicked(Package onePackage) {
-        Timber.d("on package item clicked...");
+        Intent intent = new Intent(this, PackageDetailActivity.class);
+        intent.putExtra("package", (new Gson()).toJson(onePackage));
+        startActivity(intent);
     }
 
     private void showLoading() {
